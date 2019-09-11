@@ -9,12 +9,14 @@ void ordenarArrayLeg(int leg[], int age[], char sex[], int n1[], int n2[], float
 void ordenarArrayAge(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam);
 void ordenarArraySex(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam);
 void ordenarArrayN1(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam);
-void ordenarArrayN1(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam);
+void ordenarArrayN2(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam);
 void ordenarArrayProm(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam);
+void ordenarAlumnosSexLeg( int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam);
+
 
 int main()
 {
-    int legajos[TAM] = {932 ,123, 567, 379, 101};
+    int legajos[TAM] = {932,123, 567, 379, 101};
     int edades[TAM] =  {21, 23, 20, 21, 30};
     char sexos[TAM] = {'f', 'f', 'm', 'f', 'm'};
     int notasp1[TAM] = {2, 4, 7, 8, 5};
@@ -22,37 +24,38 @@ int main()
     float promedios[TAM] = { 3, 7, 8, 6, 3.5};
     int opcion;
 
-   /* for(int i = 0; i < TAM; i++){
+    /* for(int i = 0; i < TAM; i++){
 
-        printf("Ingrese legajo: ");
-        scanf("%d", &legajos[i]);
+         printf("Ingrese legajo: ");
+         scanf("%d", &legajos[i]);
 
-        printf("Ingrese edad: ");
-        scanf("%d", &edades[i]);
+         printf("Ingrese edad: ");
+         scanf("%d", &edades[i]);
 
-        printf("Ingrese sexo: ");
-        fflush(stdin);
-        scanf("%c", &sexos[i]);
+         printf("Ingrese sexo: ");
+         fflush(stdin);
+         scanf("%c", &sexos[i]);
 
-        printf("Ingrese Nota Primer Parcial: ");
-        scanf("%d", &notasp1[i]);
+         printf("Ingrese Nota Primer Parcial: ");
+         scanf("%d", &notasp1[i]);
 
-        printf("Ingrese Nota Segundo Parcial: ");
-        scanf("%d", &notasp2[i]);
+         printf("Ingrese Nota Segundo Parcial: ");
+         scanf("%d", &notasp2[i]);
 
-        promedios[i] = (float) (notasp1[i] + notasp2[i]) / 2;
-    }*/
+         promedios[i] = (float) (notasp1[i] + notasp2[i]) / 2;
+     }*/
 
 
     system("cls");
     mostrarAlumnos(legajos, edades, sexos, notasp1, notasp2, promedios, TAM);
     printf("\n\n");
 
-    printf("Opciones de ordeamiento:\n1-Legajo\n2-edad\n3-sexo\n4-nota primer parcial\n5-nota segundo parcial\n6-promedios\n\n");
+    printf("Opciones de ordeamiento:\n1-Legajo\n2-edad\n3-sexo\n4-nota primer parcial\n5-nota segundo parcial\n6-promedios\n7-ordenamiento por sexo y legajo\n\n");
     printf("Elija opcion: ");
     scanf("%d",&opcion);
 
-    switch(opcion) {
+    switch(opcion)
+    {
     case 1:
         ordenarArrayLeg(legajos, edades, sexos, notasp1, notasp2, promedios, TAM);
         break;
@@ -70,8 +73,11 @@ int main()
     case 6:
         ordenarArrayProm(legajos, edades, sexos, notasp1, notasp2, promedios, TAM);
         break;
+    case 7:
+        ordenarAlumnosSexLeg(legajos, edades, sexos, notasp1, notasp2, promedios, TAM);
+        break;
 //    case default:
-  //      printf("NO ELIGIO OPCION VALIDA");
+        //      printf("NO ELIGIO OPCION VALIDA");
 
     }
 
@@ -84,265 +90,332 @@ int main()
     return 0;
 }
 
-void mostrarAlumnos( int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam){
+void mostrarAlumnos( int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam)
+{
 
     printf(" Legajo  Edad  Sexo  Nota1  Nota2  Promedio\n\n");
-    for(int i=0; i < tam; i++){
-      mostrarAlumno( leg[i], age[i], sex[i], n1[i], n2[i], prom[i]);
+    for(int i=0; i < tam; i++)
+    {
+        mostrarAlumno( leg[i], age[i], sex[i], n1[i], n2[i], prom[i]);
     }
     printf("\n\n");
 }
 
 
 
-void mostrarAlumno(int leg, int age, char sexo, int nota1, int nota2, float promedio){
+void mostrarAlumno(int leg, int age, char sexo, int nota1, int nota2, float promedio)
+{
 
     printf("   %d     %d    %c     %d    %d     %.2f\n", leg, age, sexo, nota1, nota2, promedio);
 
 }
 
-void ordenarArrayLeg(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam) {
+void ordenarArrayLeg(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam)
+{
 
-    int auxLeg;
-    int auxAge;
-    char auxSex;
-    int auxN1;
-    int auxN2;
-    float auxProm;
+    int auxInt;
+    char auxChar;
+    float auxFloat;
 
-    for (int i=0;i<tam-1;i++) {
-        for (int j=i+1;j<tam;j++) {
-            if (leg[i]>leg[j]) {
+    for (int i=0; i<tam-1; i++)
+    {
+        for (int j=i+1; j<tam; j++)
+        {
+            if (leg[i]>leg[j])
+            {
 
-                auxLeg=leg[j];
+                auxInt=leg[j];
                 leg[j]=leg[i];
-                leg[i]=auxLeg;
+                leg[i]=auxInt;
 
-                auxAge=age[j];
+                auxInt=age[j];
                 age[j]=age[i];
-                age[i]=auxAge;
+                age[i]=auxInt;
 
-                auxSex=sex[j];
+                auxChar=sex[j];
                 sex[j]=sex[i];
-                sex[i]=auxSex;
+                sex[i]=auxChar;
 
-                auxN1=n1[j];
+                auxInt=n1[j];
                 n1[j]=n1[i];
-                n1[i]=auxN1;
+                n1[i]=auxInt;
 
-                auxN2=n2[j];
+                auxInt=n2[j];
                 n2[j]=n2[i];
-                n2[i]=auxN2;
+                n2[i]=auxInt;
 
-                auxProm=prom[j];
+                auxFloat=prom[j];
                 prom[j]=prom[i];
-                prom[i]=auxProm;
+                prom[i]=auxFloat;
             }
         }
     }
 }
 
-void ordenarArrayAge(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam) {
+void ordenarArrayAge(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam)
+{
 
-    int auxLeg;
-    int auxAge;
-    char auxSex;
-    int auxN1;
-    int auxN2;
-    float auxProm;
+    int auxInt;
+    char auxChar;
+    float auxFloat;
 
-    for (int i=0;i<tam-1;i++) {
-        for (int j=i+1;j<tam;j++) {
-            if (age[i]>age[j]) {
+    for (int i=0; i<tam-1; i++)
+    {
+        for (int j=i+1; j<tam; j++)
+        {
+            if (age[i]>age[j])
+            {
 
-                auxLeg=leg[j];
+                auxInt=leg[j];
                 leg[j]=leg[i];
-                leg[i]=auxLeg;
+                leg[i]=auxInt;
 
-                auxAge=age[j];
+                auxInt=age[j];
                 age[j]=age[i];
-                age[i]=auxAge;
+                age[i]=auxInt;
 
-                auxSex=sex[j];
+                auxChar=sex[j];
                 sex[j]=sex[i];
-                sex[i]=auxSex;
+                sex[i]=auxChar;
 
-                auxN1=n1[j];
+                auxInt=n1[j];
                 n1[j]=n1[i];
-                n1[i]=auxN1;
+                n1[i]=auxInt;
 
-                auxN2=n2[j];
+                auxInt=n2[j];
                 n2[j]=n2[i];
-                n2[i]=auxN2;
+                n2[i]=auxInt;
 
-                auxProm=prom[j];
+                auxFloat=prom[j];
                 prom[j]=prom[i];
-                prom[i]=auxProm;
+                prom[i]=auxFloat;
             }
         }
     }
 }
 
-void ordenarArraySex(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam) {
+void ordenarArraySex(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam)
+{
 
-    int auxLeg;
-    int auxAge;
-    char auxSex;
-    int auxN1;
-    int auxN2;
-    float auxProm;
+    int auxInt;
+    char auxChar;
+    float auxFloat;
 
-    for (int i=0;i<tam-1;i++) {
-        for (int j=i+1;j<tam;j++) {
-            if (sex[i]>sex[j]) {
+    for (int i=0; i<tam-1; i++)
+    {
+        for (int j=i+1; j<tam; j++)
+        {
+            if (sex[i]>sex[j])
+            {
 
-                auxLeg=leg[j];
+                auxInt=leg[j];
                 leg[j]=leg[i];
-                leg[i]=auxLeg;
+                leg[i]=auxInt;
 
-                auxAge=age[j];
+                auxInt=age[j];
                 age[j]=age[i];
-                age[i]=auxAge;
+                age[i]=auxInt;
 
-                auxSex=sex[j];
+                auxChar=sex[j];
                 sex[j]=sex[i];
-                sex[i]=auxSex;
+                sex[i]=auxChar;
 
-                auxN1=n1[j];
+                auxInt=n1[j];
                 n1[j]=n1[i];
-                n1[i]=auxN1;
+                n1[i]=auxInt;
 
-                auxN2=n2[j];
+                auxInt=n2[j];
                 n2[j]=n2[i];
-                n2[i]=auxN2;
+                n2[i]=auxInt;
 
-                auxProm=prom[j];
+                auxFloat=prom[j];
                 prom[j]=prom[i];
-                prom[i]=auxProm;
+                prom[i]=auxFloat;
             }
         }
     }
 }
 
-void ordenarArrayN1(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam) {
+void ordenarArrayN1(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam)
+{
 
-    int auxLeg;
-    int auxAge;
-    char auxSex;
-    int auxN1;
-    int auxN2;
-    float auxProm;
+    int auxInt;
+    char auxChar;
+    float auxFloat;
 
-    for (int i=0;i<tam-1;i++) {
-        for (int j=i+1;j<tam;j++) {
-            if (n1[i]>n1[j]) {
+    for (int i=0; i<tam-1; i++)
+    {
+        for (int j=i+1; j<tam; j++)
+        {
+            if (n1[i]>n1[j])
+            {
 
-                auxLeg=leg[j];
+                auxInt=leg[j];
                 leg[j]=leg[i];
-                leg[i]=auxLeg;
+                leg[i]=auxInt;
 
-                auxAge=age[j];
+                auxInt=age[j];
                 age[j]=age[i];
-                age[i]=auxAge;
+                age[i]=auxInt;
 
-                auxSex=sex[j];
+                auxChar=sex[j];
                 sex[j]=sex[i];
-                sex[i]=auxSex;
+                sex[i]=auxChar;
 
-                auxN1=n1[j];
+                auxInt=n1[j];
                 n1[j]=n1[i];
-                n1[i]=auxN1;
+                n1[i]=auxInt;
 
-                auxN2=n2[j];
+                auxInt=n2[j];
                 n2[j]=n2[i];
-                n2[i]=auxN2;
+                n2[i]=auxInt;
 
-                auxProm=prom[j];
+                auxFloat=prom[j];
                 prom[j]=prom[i];
-                prom[i]=auxProm;
+                prom[i]=auxFloat;
             }
         }
     }
 }
 
-void ordenarArrayN2(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam) {
+void ordenarArrayN2(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam)
+{
 
-    int auxLeg;
-    int auxAge;
-    char auxSex;
-    int auxN1;
-    int auxN2;
-    float auxProm;
+    int auxInt;
+    char auxChar;
+    float auxFloat;
 
-    for (int i=0;i<tam-1;i++) {
-        for (int j=i+1;j<tam;j++) {
-            if (n2[i]>n2[j]) {
+    for (int i=0; i<tam-1; i++)
+    {
+        for (int j=i+1; j<tam; j++)
+        {
+            if (n2[i]>n2[j])
+            {
 
-                auxLeg=leg[j];
+                auxInt=leg[j];
                 leg[j]=leg[i];
-                leg[i]=auxLeg;
+                leg[i]=auxInt;
 
-                auxAge=age[j];
+                auxInt=age[j];
                 age[j]=age[i];
-                age[i]=auxAge;
+                age[i]=auxInt;
 
-                auxSex=sex[j];
+                auxChar=sex[j];
                 sex[j]=sex[i];
-                sex[i]=auxSex;
+                sex[i]=auxChar;
 
-                auxN1=n1[j];
+                auxInt=n1[j];
                 n1[j]=n1[i];
-                n1[i]=auxN1;
+                n1[i]=auxInt;
 
-                auxN2=n2[j];
+                auxInt=n2[j];
                 n2[j]=n2[i];
-                n2[i]=auxN2;
+                n2[i]=auxInt;
 
-                auxProm=prom[j];
+                auxFloat=prom[j];
                 prom[j]=prom[i];
-                prom[i]=auxProm;
+                prom[i]=auxFloat;
             }
         }
     }
 }
 
-void ordenarArrayProm(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam) {
+void ordenarArrayProm(int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam)
+{
 
-    int auxLeg;
-    int auxAge;
-    char auxSex;
-    int auxN1;
-    int auxN2;
-    float auxProm;
+    int auxInt;
+    char auxChar;
+    float auxFloat;
 
-    for (int i=0;i<tam-1;i++) {
-        for (int j=i+1;j<tam;j++) {
-            if (prom[i]>prom[j]) {
+    for (int i=0; i<tam-1; i++)
+    {
+        for (int j=i+1; j<tam; j++)
+        {
+            if (prom[i]>prom[j])
+            {
 
-                auxLeg=leg[j];
+                auxInt=leg[j];
                 leg[j]=leg[i];
-                leg[i]=auxLeg;
+                leg[i]=auxInt;
 
-                auxAge=age[j];
+                auxInt=age[j];
                 age[j]=age[i];
-                age[i]=auxAge;
+                age[i]=auxInt;
 
-                auxSex=sex[j];
+                auxChar=sex[j];
                 sex[j]=sex[i];
-                sex[i]=auxSex;
+                sex[i]=auxChar;
 
-                auxN1=n1[j];
+                auxInt=n1[j];
                 n1[j]=n1[i];
-                n1[i]=auxN1;
+                n1[i]=auxInt;
 
-                auxN2=n2[j];
+                auxInt=n2[j];
                 n2[j]=n2[i];
-                n2[i]=auxN2;
+                n2[i]=auxInt;
 
-                auxProm=prom[j];
+                auxFloat=prom[j];
                 prom[j]=prom[i];
-                prom[i]=auxProm;
+                prom[i]=auxFloat;
             }
+        }
+    }
+}
+
+
+
+void ordenarAlumnosSexLeg( int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam)
+{
+
+    int auxInt;
+    float auxFloat;
+    char auxChar;
+    int swap = 0;
+
+    for(int i=0; i < tam-1; i++)
+    {
+        for(int j = i +1; j < tam; j++)
+        {
+
+            if( sex[i] > sex[j])
+            {
+                swap = 1;
+            }
+            else if( sex[i] == sex[j] && leg[i] > leg[j])
+            {
+
+                swap = 1;
+            }
+
+            if( swap )  //verifica si swap es igual a 1 (es true)
+            {
+
+                auxInt = leg[i];
+                leg[i] = leg[j];
+                leg[j] = auxInt;
+
+                auxInt = age[i];
+                age[i] = age[j];
+                age[j] = auxInt;
+
+                auxChar = sex[i];
+                sex[i] = sex[j];
+                sex[j] = auxChar;
+
+                auxInt = n1[i];
+                n1[i] = n1[j];
+                n1[j] = auxInt;
+
+                auxInt = n2[i];
+                n2[i] = n2[j];
+                n2[j] = auxInt;
+
+                auxFloat = prom[i];
+                prom[i] = prom[j];
+                prom[j] = auxFloat;
+            }
+
+            swap = 0;
         }
     }
 }
