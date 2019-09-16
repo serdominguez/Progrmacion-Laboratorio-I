@@ -22,7 +22,7 @@ int main()
 {
     int legajos[TAM] = {932,123, 567, 379, 101};
     int edades[TAM] =  {21, 23, 20, 21, 30};
-    char sexos[TAM] = {'f', 'f', 'm', 'f', 'm'};
+    char sexos[TAM] = {'m', 'm', 'f', 'f', 'm'};
     int notasp1[TAM] = {2, 4, 7, 8, 5};
     int notasp2[TAM] = {4, 10, 9, 4, 2};
     float promedios[TAM] = { 3, 7, 8, 6, 3.5};
@@ -32,7 +32,7 @@ int main()
         "Manuel",
         "Alicia",
         "Sofia",
-        "Claudia"
+        "Claudio"
     };
     //char auxCad[100];
     int opcion;
@@ -120,7 +120,7 @@ int main()
 void mostrarAlumnos( int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam, char mat[][20])
 {
 
-    printf(" Legajo  Edad  Sexo  Nota1  Nota2  Promedio  Nombre\n\n");
+    printf("Legajo\tEdad\tSexo\tNota1\tNota2\tPromedio\tNombre\n\n");
     for(int i=0; i < tam; i++)
     {
         mostrarAlumno( leg[i], age[i], sex[i], n1[i], n2[i], prom[i], mat[i]);
@@ -133,7 +133,7 @@ void mostrarAlumnos( int leg[], int age[], char sex[], int n1[], int n2[], float
 void mostrarAlumno(int leg, int age, char sexo, int nota1, int nota2, float promedio, char mat[])
 {
 
-    printf("   %d     %d    %c     %d    %d      %.2f      %s\n", leg, age, sexo, nota1, nota2, promedio, mat);
+    printf("%d\t%d\t%c\t%2d\t%2d\t%.2f\t\t%s\n", leg, age, sexo, nota1, nota2, promedio, mat);
 
 }
 
