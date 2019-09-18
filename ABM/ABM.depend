@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1568817920 source:d:\dominguez\progrmacion-laboratorio-i\abm\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<string.h>
+
