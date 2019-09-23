@@ -1,0 +1,40 @@
+# depslib dependency file v1.0
+1569243602 source:c:\users\alumno\desktop\abm\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<string.h>
+	"Alumno.h"
+
+1569245543 source:c:\users\alumno\desktop\abm\alumno.c
+	"Alumno.h"
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<string.h>
+
+1569245542 c:\users\alumno\desktop\abm\alumno.h
+
+1569247506 source:d:\dominguez\progrmacion-laboratorio-i\abmcarreraalumno\alumno.c
+	"Alumno.h"
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<string.h>
+
+1569247506 d:\dominguez\progrmacion-laboratorio-i\abmcarreraalumno\alumno.h
+	"Carrera.h"
+
+1569247506 d:\dominguez\progrmacion-laboratorio-i\abmcarreraalumno\carrera.h
+
+1569247506 source:d:\dominguez\progrmacion-laboratorio-i\abmcarreraalumno\carrera.c
+	"Carrera.h"
+
+1569247506 source:d:\dominguez\progrmacion-laboratorio-i\abmcarreraalumno\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<string.h>
+	"Alumno.h"
+	"Carrera.h"
+
