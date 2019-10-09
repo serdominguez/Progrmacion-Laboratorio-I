@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1570630162 source:c:\users\alumno\desktop\parcial dominguez\main.c
+	<stdio.h>
+	<stdlib.h>
+	"valida.h"
+	"string.h"
+
+1570625606 source:c:\users\alumno\desktop\parcial dominguez\valida.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"valida.h"
+
+1570625606 c:\users\alumno\desktop\parcial dominguez\valida.h
+
