@@ -1,0 +1,61 @@
+# depslib dependency file v1.0
+1570806783 source:c:\users\tamura\desktop\parcial dominguez\valida.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"valida.h"
+
+1570805802 c:\users\tamura\desktop\parcial dominguez\valida.h
+
+1570905895 source:c:\users\tamura\desktop\parcial dominguez\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"valida.h"
+
+1570806783 source:c:\laboratorio c\parcial dominguez - bibliotecas\valida.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"valida.h"
+
+1570805802 c:\laboratorio c\parcial dominguez - bibliotecas\valida.h
+
+1570907691 source:c:\laboratorio c\parcial dominguez - bibliotecas\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"valida.h"
+	"autos.h"
+	"listas.h"
+
+1570907530 c:\laboratorio c\parcial dominguez - bibliotecas\autos.h
+
+1570907010 source:c:\laboratorio c\parcial dominguez - bibliotecas\autos.c
+	<stdio.h>
+	<stdlib.h>
+	"autos.h"
+	"valida.h"
+
+1570907601 c:\laboratorio c\parcial dominguez - bibliotecas\listas.h
+	"trabajos.h"
+
+1570907630 c:\laboratorio c\parcial dominguez - bibliotecas\trabajos.h
+	"autos.h"
+
+1570907530 source:c:\laboratorio c\parcial dominguez - bibliotecas\listas.c
+	"listas.h"
+	"autos.h"
+	"trabajos.h"
+
+1570907679 source:c:\laboratorio c\parcial dominguez - bibliotecas\trabajos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"valida.h"
+	"trabajos.h"
+	"autos.h"
+	"listas.h"
+
