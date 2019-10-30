@@ -22,17 +22,18 @@ int getSueldoEmpleado(eEmpleado* e, float* sueldo);
 int mostrarEmpleados (eEmpleado** e, int tam);
 int mostrarEmpleado (eEmpleado* e);
 eEmpleado** agrandarLista(eEmpleado** vec, int tam);
+int guardarEmpleadosBinario (eEmpleado** lista, int tam, char* path);
 
 
 int main()
 {
     int tam = 0;
+    int tam2 = 0;
+    int cant;
     eEmpleado* auxEmpleado = NULL;
     eEmpleado** lista = (eEmpleado**) malloc(sizeof(eEmpleado*));
-    int auxInt;
-    float auxFloat;
-    char auxCad[100];
-    int cant;
+    char buffer[3][30];
+
 
     if (lista == NULL)
     {
@@ -40,8 +41,6 @@ int main()
         system("pause");
         exit(EXIT_FAILURE);
     }
-
-    char buffer[3][30];
 
     FILE* f = fopen("empleados.csv", "r") ;
     if (f == NULL)
@@ -51,6 +50,7 @@ int main()
 
     fscanf(f, "%[^,],%[^,],%[^\n]\n", buffer[0],buffer[1], buffer[2]);
 
+
     while (!feof(f))
     {
         cant = fscanf(f, "%[^,],%[^,],%[^\n]\n", buffer[0],buffer[1], buffer[2]);
@@ -59,79 +59,96 @@ int main()
             auxEmpleado = newEmpledaoParam(atoi(buffer[0]), buffer[1], atof(buffer[2]) );
             if (auxEmpleado != NULL)
             {
-                *(lista + tam) = auxEmpleado;
 
-                if (agrandarLista(lista, tam + 1) != NULL)
+                *(lista + tam) = auxEmpleado;
+                tam ++;
+
+                if ((lista = agrandarLista(lista, tam + 1) ) != NULL)
                 {
+                    //  printf("t %d\n", tam);
+                    //  mostrarEmpleado(*(lista+tam));
                     //printf("Empleado agregado a la lista\n");
-                    tam ++;
+
                 }
             }
         }
 
     }
+    fclose(f);
 
     mostrarEmpleados(lista, tam);
 
+    if (guardarEmpleadosBinario(lista, tam, "empleados.bin"))
+    {
+
+        printf("Empleados guardados con exito\n");
+        system("pause");
+    }
+    else
+    {
+        printf("No se pudieron serializar los empleados\n");
+        system("pause");
+
+    }
+
+
+    //------------------LEO DESDE BINARIO------------------------------
+
+    eEmpleado** lista2 = (eEmpleado**) malloc(sizeof(eEmpleado*));
+
+    if (lista2 == NULL)
+    {
+        printf("No se pudo asignar memoria\n");
+        system("pause");
+        exit(EXIT_FAILURE);
+    }
+
+    f = fopen("empleados.bin", "rb") ;
+    if (f == NULL)
+    {
+        exit(1);
+    }
+
+    while (!feof(f))
+    {
+
+        auxEmpleado = newEmpleado();
+
+        if (auxEmpleado != NULL)
+        {
+            cant = fread( auxEmpleado, sizeof(eEmpleado), 1, f);
+            if (cant == 1)
+            {
+
+                *(lista2 + tam2) = auxEmpleado;
+                tam2 ++;
+
+                if ((lista2 = agrandarLista(lista2, tam2 + 1) ) == NULL)
+                {
+                    printf("No se pudo agrandar");
+
+
+                }
+            }
+
+        }
+
+    }
+
+    printf("Empleados binarios\n");
+    mostrarEmpleados(lista2, tam2);
 
     fclose(f);
 
-    /*
 
-    printf("Ingrese ID: ");
-    scanf("%d", &auxInt);
+    // --------------------CREAR UN ARCHIVO CSV------------------------
 
-    printf("Ingrese nombre: ");
-    fflush(stdin);
-    gets(auxCad);
+    if (guardarEmpleadosCSV(lista2, tam2, "LISTA.csv") ) {
 
-    printf("Ingrese sueldo: ");
-    scanf("%f", &auxFloat);
-
-    auxEmpleado = newEmpledaoParam(auxInt, auxCad, auxFloat);
-    if (auxEmpleado == NULL )
-    {
-        printf("No se pudo crear el empleado\n");
+        printf( "Se guardaron los empleados en csv\n");
+    } else {
+        printf("problema para guardar los empleados\n");
     }
-    else
-    {
-        printf("Empleado creado con exito\n");
-
-        *(lista + tam) = auxEmpleado;
-
-        if (agrandarLista(lista, tam + 1) != NULL)
-        {
-            printf("Empleado agregado ala lista\n");
-            tam ++;
-        }
-
-    }
-
-    system("pause");
-
-    auxEmpleado = newEmpledaoParam(18700, "Jose", 24500);
-    if (auxEmpleado == NULL )
-    {
-        printf("No se pudo crear el empleado\n");
-    }
-    else
-    {
-        printf("Empleado creado con exito\n");
-
-        *(lista + tam) = auxEmpleado;
-
-        if (agrandarLista(lista, tam + 1) != NULL)
-        {
-            printf("Empleado agregado ala lista\n");
-            tam ++;
-        }
-
-    }
-
-    system("pause");
-
-    mostrarEmpleados(lista, tam);
-    */
 
     return 0;
 }
@@ -165,7 +182,7 @@ eEmpleado* newEmpledaoParam (int id, char* nombre, float sueldo)
                 setSueldoEmpleado(nuevo, sueldo))
         {
 
-          //  printf("Empleado creado correctamente\n");
+            //  printf("Empleado creado correctamente\n");
 
         }
         else
@@ -291,7 +308,7 @@ int mostrarEmpleados (eEmpleado** e, int tam)
 
     int todoOk = 0;
 
-    printf("ID  NOMBRE  SUELDO\n");
+    printf("ID     NOMBRE     SUELDO\n");
 
     if (e != NULL && tam > 0)
     {
@@ -320,4 +337,75 @@ eEmpleado** agrandarLista(eEmpleado** vec, int tam)
 
     return vec;
 
+}
+
+
+int guardarEmpleadosBinario (eEmpleado** lista, int tam, char* path)
+{
+
+    int todoOk = 0;
+    int cant;
+    FILE* f;
+
+    if (lista != NULL && path != NULL && tam > 0)
+    {
+
+        f = fopen(path, "wb");
+        if (f == NULL)
+        {
+            return todoOk;
+
+        }
+        for (int i=0; i<tam; i++)
+        {
+            cant = fwrite(*(lista+i), sizeof(eEmpleado), 1, f);
+            if (cant<1)
+            {
+                return todoOk;
+            }
+        }
+
+        fclose(f);
+        todoOk = 1;
+
+    }
+
+    return todoOk;
+
+}
+
+
+
+int guardarEmpleadosCSV (eEmpleado** lista, int tam, char* path) {
+
+    int todoOk =0;
+
+
+    if (lista != NULL && path != NULL && tam>0) {
+
+        FILE* f = fopen(path, "w");
+        int cant;
+        if (f == NULL)
+        {
+            return todoOk;
+
+        }
+        fprintf(f,"ID NOMBRE SUELDO\n");
+        for (int i=0; i<tam; i++)
+        {
+            cant = fprintf(f, "%d,%s,%.2f\n",(*(lista+i))->id,(*(lista+i))->nombre,(*(lista+i))->sueldo);
+
+            if (cant<1)
+            {
+                return todoOk;
+            }
+        }
+
+        fclose(f);
+        todoOk = 1;
+
+    }
+
+
+    return todoOk;
 }
